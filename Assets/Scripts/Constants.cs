@@ -14,3 +14,20 @@ public static class Tags
     public const string Player = "Player";
     public const string Potion = "Potion";
 }
+
+public enum Essence
+{
+    Gold,
+    Wood,
+    Water,
+    Fire,
+    Earth
+}
+
+public static class Messages
+{
+    public const string LabChanged = "LabChanged";
+    public const string PlayerStatusChanged = "PlayerStatusChanged";
+    public const string UsePotion = "UsePotion";
+    public const string StockChanged = "StockChanged";
+}

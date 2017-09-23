@@ -11,33 +11,90 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class AlchemyLab : MonoBehaviour 
+public class AlchemyLab : Singleton<AlchemyLab>
 {
-    public Formular[] formulars;
+    public int slotCount = 3;
+    public List<IngredientData> addedIngredients;
+    public PotionData currentPotion;
+
+    IEnumerable<Formular> Formulars
+    {
+        get
+        {
+            return AlchemyLibrary.Instance.Formulars;
+        }
+    }
+
+    private void Awake()
+    {
+        addedIngredients = new List<IngredientData>(slotCount);
+    }
+
+    public void ClearIngredients()
+    {
+        addedIngredients.Clear();
+        currentPotion = null;
+        NotifyLabDataChanged();
+    }
+
+    public void AddIngredient(IngredientData ingredient)
+    {
+        if (addedIngredients.Count >= slotCount) return;
+        addedIngredients.Add(ingredient);
+        currentPotion = TryCombination(Formulars, addedIngredients.Select(i => i.id).ToArray());
+        NotifyLabDataChanged();
+    }
+
+    public void UseCurrentPotion()
+    {
+        foreach (var ingredient in addedIngredients)
+        {
+            ingredient.Use();
+        }
+        Messenger.Broadcast(Messages.UsePotion, MakeLabData());
+        ClearIngredients();
+    }
 
     /// <summary>
     /// Combine ingredients into a potion
     /// </summary>
     /// <param name="ingredientIds">ingredient IDs</param>
     /// <returns>potion ID. If combination fails, return NULL</returns>
-    public string Combine(params string[] ingredientIds)
+    public PotionData TryCombination(IEnumerable<Formular> formulars, params string[] ingredientIds)
     {
-        var f = FindFormular(ingredientIds);
+        var f = FindFormular(ingredientIds, formulars);
         if (Formular.IsValid(f))
-            return f.potionId;
+        {
+            var pid = f.potionId;
+            return AlchemyLibrary.Instance.FindPotion(pid);
+        }
         return null;
     }
 
-    Formular FindFormular(string[] ingredientIds)
+    public Formular FindFormular(string[] ingredientIds, IEnumerable<Formular> formulars)
     {
         if (formulars == null)
             return Formular.Invalid;
 
         return formulars.FirstOrDefault(f => f.Match(ingredientIds));
     }
+
+    void NotifyLabDataChanged()
+    {
+        Messenger.Broadcast(Messages.LabChanged, MakeLabData());
+    }
+
+    LabData MakeLabData()
+    {
+        return new LabData
+        {
+            ingredients = addedIngredients,
+            outcomePotion = currentPotion
+        };
+    }
 }
 
-[Serializable] 
+[Serializable]
 public struct Formular
 {
     public static Formular Invalid = new Formular
@@ -74,4 +131,10 @@ public struct Formular
         }
         return unmatched.Count == 0;
     }
+}
+
+public struct LabData
+{
+    public IEnumerable<IngredientData> ingredients;
+    public PotionData outcomePotion;
 }

@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 222170566554317366}
   - component: {fileID: 114237467885323338}
   - component: {fileID: 114804177734728350}
+  - component: {fileID: 114623462728462944}
   m_Layer: 5
   m_Name: HP
   m_TagString: Untagged
@@ -188,6 +189,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114623462728462944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264261942873832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2515cd3fdab4e554d9ecae194972e8c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpBar: {fileID: 114223633941416990}
 --- !u!114 &114804177734728350
 MonoBehaviour:
   m_ObjectHideFlags: 1

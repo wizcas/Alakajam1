@@ -11,10 +11,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Potion : MonoBehaviour 
-{	
-    public Sprite sprite;
-    public string id;
-    public bool isProjectile = true;
+{
+    public PotionData data;
+    [SerializeField] SpriteRenderer _renderer;
 
     Rigidbody2D _rigid;
     public Rigidbody2D Rigid
@@ -27,8 +26,45 @@ public class Potion : MonoBehaviour
         }
     }
 
+    static FastPool Pool
+    {
+        get
+        {
+            return FastPoolManager.GetPool(2, null, false);
+        }
+    }
+
     public void Break()
     {
-        Destroy(gameObject);
+        Pool.FastDestroy(this);
+    }
+
+    public static Potion Make(PotionData data, Vector3 pos)
+    {
+        if (data == null) return null;
+        var potion = Pool.FastInstantiate<Potion>(pos, Quaternion.identity);
+        potion.data = data;
+        potion._renderer.sprite = data.icon;
+        return potion;
+    }
+}
+
+[System.Serializable]
+public class PotionData : IRuntimeData
+{
+    public string id;
+    public Sprite icon;
+    public string displayName;
+    public bool isProjectile;
+
+    public object Copy()
+    {
+        return new PotionData
+        {
+            id = id,
+            icon = icon,
+            displayName = displayName,
+            isProjectile = isProjectile
+        };
     }
 }

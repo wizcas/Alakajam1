@@ -52,7 +52,7 @@ public class Obstacle : MonoBehaviour
             return false;
         }
         if (effectivePotionIds == null || effectivePotionIds.Length == 0) return false;
-        return effectivePotionIds.Contains(potion.id);
+        return effectivePotionIds.Contains(potion.data.id);
     }
 
     [ClickMe("Reset")]
