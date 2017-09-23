@@ -40,6 +40,7 @@ public class AlchemyLab : Singleton<AlchemyLab>
     public void AddIngredient(IngredientData ingredient)
     {
         if (addedIngredients.Count >= slotCount) return;
+        if (ingredient.stock - addedIngredients.Count(i=>i.id == ingredient.id) <= 0) return;
         addedIngredients.Add(ingredient);
         currentPotion = TryCombination(Formulars, addedIngredients.Select(i => i.id).ToArray());
         NotifyLabDataChanged();

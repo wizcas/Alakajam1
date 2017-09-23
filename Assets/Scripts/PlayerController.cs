@@ -14,6 +14,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 3;
+    public float speedModifier = 0;
     public Vector2 tossDir = new Vector2(1, .5f);
     public float tossSpeed = 8f;
     public float gravity = 9.8f;
@@ -26,6 +27,11 @@ public class PlayerController : MonoBehaviour
     bool _isGrounded;
     Vector2 _footOffset;
 
+    float Speed
+    {
+        get { return speed + speedModifier; }
+    }
+
     private void Awake()
     {
         Messenger.AddListener<LabData>(Messages.UsePotion, UsePotion);
@@ -35,11 +41,11 @@ public class PlayerController : MonoBehaviour
     {
         _status = GetComponent<PlayerStatus>();
         _footOffset = transform.position - _footPos.position;
+        //Debug.Break();
     }
 
     private void Update()
     {
-        UpdatePosition();
         // todo: change keyboard mapping
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
@@ -63,6 +69,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        UpdatePosition();        
+    }
+
     void UpdatePosition()
     {
         var selfPos = transform.position;
@@ -71,28 +82,34 @@ public class PlayerController : MonoBehaviour
         var rayStartPos = selfPos + Vector3.up * groundCheckYOffset;
         Debug.DrawRay(rayStartPos, Vector2.down, Color.blue, 1f);
         var hit = Physics2D.Raycast(rayStartPos, Vector2.down, 5f, LayerMask.GetMask("Ground"));
-        _isGrounded = hit.transform != null;
-        float y;
+        if (hit.transform == null)
+        {
+            _isGrounded = false;
+        }
+        else
+        {
+            _isGrounded = Mathf.Approximately(_footPos.position.y, hit.point.y) || _footPos.position.y < hit.point.y;
+        }
+        PrettyLog.LogEasy("is on ground?", _isGrounded);
+        float yDelta = -1;
         if (_isGrounded)
         {
             // place on the ground
             Debug.DrawLine(hit.point, hit.point + Vector2.left * 2f, Color.red, 1f);
-            y = hit.point.y + _footOffset.y;
+            yDelta = hit.point.y + _footOffset.y - selfPos.y;
+            PrettyLog.Log("hit: {0}, offset: {1}, y: {2}", hit.point.y, _footOffset.y, yDelta);
         }
-        else
+        float xDelta = 1;
+        if (_status.IsDead)
         {
-            // fall by gravity
-            y = selfPos.y - gravity;
+            xDelta = 0;
         }
-        transform.position = new Vector3(selfPos.x, y, selfPos.z);
-        selfPos = transform.position;
-        float x = selfPos.x;
-        if (!_status.IsDead)
-        {
-            x += speed;
-        }
-        var nextPos = new Vector3(x, y, selfPos.z);
-        transform.position = Vector3.Lerp(selfPos, nextPos, Time.deltaTime);
+        var dir = new Vector2(xDelta, yDelta).normalized;
+        var nextPos = selfPos + new Vector3(dir.x * speed, dir.y * gravity, selfPos.z);
+        
+        transform.position = Vector3.Lerp(selfPos, nextPos, Time.fixedDeltaTime);
+        PrettyLog.Log("frame end: {0}", transform.position.y);
+
     }
 
     void AddIngredient(int index)
@@ -111,13 +128,17 @@ public class PlayerController : MonoBehaviour
             //todo: fail / mysterious
             return;
         }
-        // update stock
-
         var potion = Potion.Make(data.outcomePotion, transform.position);
-        if (potion.data.isProjectile)
-            TossPotion(potion);
-        else
-            DrinkPotion(potion);
+        switch (potion.data.kind)
+        {
+            case PotionData.Kind.Toss:
+            case PotionData.Kind.Plant:
+                TossPotion(potion);
+                break;
+            case PotionData.Kind.Drink:
+                DrinkPotion(potion);
+                break;
+        }
     }
 
     void PlayCombineAnim(IEnumerable<IngredientData> datas)

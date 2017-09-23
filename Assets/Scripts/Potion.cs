@@ -36,6 +36,7 @@ public class Potion : MonoBehaviour
 
     public void Break()
     {
+        AfterBreak();
         Pool.FastDestroy(this);
     }
 
@@ -47,15 +48,31 @@ public class Potion : MonoBehaviour
         potion._renderer.sprite = data.icon;
         return potion;
     }
+
+    void AfterBreak()
+    {
+        if(data.kind == PotionData.Kind.Plant)
+        {
+            var plant = Instantiate(data.plantPrefab);
+            plant.transform.position = transform.position;
+        }
+    }
 }
 
 [System.Serializable]
 public class PotionData : IRuntimeData
 {
+    public enum Kind
+    {
+        Toss,
+        Drink,
+        Plant
+    }
     public string id;
     public Sprite icon;
     public string displayName;
-    public bool isProjectile;
+    public Kind kind;
+    public GameObject plantPrefab;
 
     public object Copy()
     {
@@ -64,7 +81,8 @@ public class PotionData : IRuntimeData
             id = id,
             icon = icon,
             displayName = displayName,
-            isProjectile = isProjectile
+            kind = kind,
+            plantPrefab = plantPrefab
         };
     }
 }
