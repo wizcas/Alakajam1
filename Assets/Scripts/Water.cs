@@ -37,6 +37,7 @@ public class Water : MonoBehaviour
         {
             PrettyLog.Log("player leaves water");
             _nextDamageTime = float.NaN;
+            _playerController.speedModifier -= speedModifier;
             _playerController = null;
             _playerStatus = null;
         }
