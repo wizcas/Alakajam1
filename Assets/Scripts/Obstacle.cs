@@ -30,10 +30,15 @@ public class Obstacle : MonoBehaviour
         {
             case Tags.Player:
                 Eliminate();
-                var player = collision.GetComponent<PlayerStatus>();
-                if (player != null)
+                var playerStatus = collision.GetComponent<PlayerStatus>();
+                if (playerStatus != null)
                 {
-                    player.Damage(damage);
+                    playerStatus.Damage(damage);                    
+                }
+                var playerController = collision.GetComponent<PlayerController>();
+                if(playerController != null)
+                {
+                    playerController.Hit();
                 }
                 break;
             case Tags.Potion:

@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1422562945480474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.139, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4926008091386230}
@@ -212,11 +212,10 @@ MonoBehaviour:
   speedModifier: 0
   tossDir: {x: 1, y: 0.5}
   tossSpeed: 10
-  gravity: 9.8
+  gravity: 4.9
   _footPos: {fileID: 4339585450575446}
   _footMarginY: 0.05
-  _effectivePotion: {fileID: 0}
-  _ineffectivePotion: {fileID: 0}
+  _anim: {fileID: 95006148681271442}
 --- !u!198 &198521156211338530
 ParticleSystem:
   m_ObjectHideFlags: 1

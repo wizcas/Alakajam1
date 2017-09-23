@@ -21,8 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _footPos;
     [SerializeField] float _footMarginY = .05f;
 
-    [SerializeField] Potion _effectivePotion;
-    [SerializeField] Potion _ineffectivePotion;
+    [SerializeField] Animator _anim;
 
     PlayerStatus _status;
     bool _isGrounded;
@@ -185,5 +184,10 @@ public class PlayerController : MonoBehaviour
     void DrinkPotion(Potion potion)
     {
         _status.SetBuff(potion.data.id, true);
+    }
+
+    public void Hit()
+    {
+        _anim.SetTrigger("Hit");
     }
 }
