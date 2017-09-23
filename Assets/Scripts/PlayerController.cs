@@ -92,14 +92,14 @@ public class PlayerController : MonoBehaviour
             slopeDir = Quaternion.Euler(0, 0, -90) * hit.normal;
             // if the slope is super steep, Unity returns a normal of value (0,1). 
             // In such case, we're going to ignore the value
-            if (Mathf.Abs(slopeDir.y) < .0005)
+            if (hit.normal.y == 1 && hit.transform.rotation != Quaternion.identity)
             {
                 slopeDir = Vector2.zero;
             }
             _isGrounded = Mathf.Abs(_footPos.position.y - hit.point.y) < _footMarginY || _footPos.position.y < hit.point.y;
         }
         float yDelta = -gravity;
-        float xDelta = speed;
+        float xDelta = Speed;
         if (_status.IsDead)
         {
             xDelta = 0;
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        var nextPos = selfPos + moveDir * mag;
+        var nextPos = selfPos + moveDir * (_isGrounded ? Speed : mag);
         transform.position = Vector3.Lerp(selfPos, nextPos, Time.fixedDeltaTime);
     }
 
