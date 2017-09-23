@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Potion
+  - Obstacle
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,8 +16,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Ground
+  - Obstacle
   - 
   - 
   - 
@@ -38,6 +41,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1962511045
+    locked: 0
+  - name: Ground
+    uniqueID: 2897017151
+    locked: 0
+  - name: Player
+    uniqueID: 870560249
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: HUD
+    uniqueID: 546562997
     locked: 0
