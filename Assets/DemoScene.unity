@@ -1059,7 +1059,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4926008091386230, guid: 3a5e335d6337ff643ba61a2e807fbfc8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 4926008091386230, guid: 3a5e335d6337ff643ba61a2e807fbfc8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1095,19 +1095,14 @@ Prefab:
       propertyPath: _ineffectivePotion
       value: 
       objectReference: {fileID: 168835666}
-    - target: {fileID: 114583686560517590, guid: 3a5e335d6337ff643ba61a2e807fbfc8,
-        type: 2}
-      propertyPath: speed
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4339585450575446, guid: 3a5e335d6337ff643ba61a2e807fbfc8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: 0.139
       objectReference: {fileID: 0}
     - target: {fileID: 114583686560517590, guid: 3a5e335d6337ff643ba61a2e807fbfc8,
         type: 2}
       propertyPath: gravity
-      value: 9.8
+      value: 4.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a5e335d6337ff643ba61a2e807fbfc8, type: 2}

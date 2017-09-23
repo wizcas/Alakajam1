@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50929144015020954}
   - component: {fileID: 114583686560517590}
   - component: {fileID: 114348822446131274}
+  - component: {fileID: 95006148681271442}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -71,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1422562945480474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.474, z: 0}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4926008091386230}
@@ -98,7 +99,7 @@ Transform:
   m_GameObject: {fileID: 1397695005775532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4339585450575446}
   - {fileID: 4451071274317948}
@@ -137,10 +138,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -150,6 +151,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &95006148681271442
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397695005775532}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 772a241c2bc41674eb565be3ea812f1c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114348822446131274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,11 +208,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4927877255472d741af0b12072b7cccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
+  speedModifier: 0
   tossDir: {x: 1, y: 0.5}
   tossSpeed: 10
   gravity: 9.8
   _footPos: {fileID: 4339585450575446}
+  _footMarginY: 0.05
   _effectivePotion: {fileID: 0}
   _ineffectivePotion: {fileID: 0}
 --- !u!198 &198521156211338530
@@ -3541,10 +3561,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 870560249
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a0ae0267c7239ce4aaab0be70da6d408, type: 3}
-  m_Color: {r: 0.6159766, g: 0.38927335, b: 0.7352941, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1a3c9481cdc6d81419b6f6d7ab462343, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

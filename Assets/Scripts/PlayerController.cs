@@ -78,18 +78,21 @@ public class PlayerController : MonoBehaviour
     void UpdatePosition()
     {
         var selfPos = transform.position;
-        var groundCheckYOffset = 0f;
+        var groundCheckYOffset = .5f;
         // ground check
         var rayStartPos = selfPos + Vector3.up * groundCheckYOffset;
-        var hit = Physics2D.Raycast(rayStartPos, Vector2.down, 2f, LayerMask.GetMask("Ground"));
+        var hit = Physics2D.Raycast(rayStartPos, Vector2.down, 1f, LayerMask.GetMask("Ground"));
         Vector2 slopeDir = Vector2.zero;
         if (hit.transform == null)
         {
+            PrettyLog.Log("no hit");
             _isGrounded = false;
         }
         else
         {
+            //Debug.DrawRay(hit.point, Vector3.left, Color.blue);
             slopeDir = Quaternion.Euler(0, 0, -90) * hit.normal;
+            //Debug.DrawRay(selfPos, slopeDir, Color.yellow);
             // if the slope is super steep, Unity returns a normal of value (0,1). 
             // In such case, we're going to ignore the value
             if (hit.normal.y == 1 && hit.transform.rotation != Quaternion.identity)
@@ -110,19 +113,20 @@ public class PlayerController : MonoBehaviour
         var moveDir = vec.normalized;
         if (moveDir == Vector3.zero)
             return;
-        
+        //Debug.DrawRay(selfPos, moveDir, Color.red);
         var mag = vec.magnitude;
         if (slopeDir != Vector2.zero && _isGrounded)
         {
             // slide along the slope and keep speed, if it's holding the player
             var slopeAngle = Vector2.SignedAngle(Vector2.right, slopeDir);
             var forwardAngle = Vector2.SignedAngle(Vector2.right, moveDir);
-            if(forwardAngle < slopeAngle)
+            if (forwardAngle < slopeAngle)
             {
                 moveDir = slopeDir;
             }
         }
-        
+        //Debug.DrawRay(selfPos, moveDir, Color.magenta);
+
         var nextPos = selfPos + moveDir * (_isGrounded ? Speed : mag);
         transform.position = Vector3.Lerp(selfPos, nextPos, Time.fixedDeltaTime);
     }
