@@ -31,15 +31,21 @@ public class Obstacle : MonoBehaviour
             case Tags.Player:
                 Eliminate();
                 var player = collision.GetComponent<PlayerStatus>();
-                player.Damage(damage);
+                if (player != null)
+                {
+                    player.Damage(damage);
+                }
                 break;
             case Tags.Potion:
                 var potion = collision.GetComponent<Potion>();
-                if (IsPotionEffective(potion))
+                if (potion != null)
                 {
-                    Eliminate();
+                    if (IsPotionEffective(potion))
+                    {
+                        Eliminate();
+                    }
+                    potion.Break();
                 }
-                potion.Break();
                 break;
         }
     }

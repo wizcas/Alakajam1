@@ -17,14 +17,14 @@ public class PlayerController : MonoBehaviour
     public Vector2 tossDir = new Vector2(1, .5f);
     public float tossSpeed = 8f;
     public float gravity = 9.8f;
-    [SerializeField] Transform _groundCheck;
+    [SerializeField] Transform _footPos;
 
     [SerializeField] Potion _effectivePotion;
     [SerializeField] Potion _ineffectivePotion;
 
     PlayerStatus _status;
     bool _isGrounded;
-    Vector2 _groundOffset;
+    Vector2 _footOffset;
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _status = GetComponent<PlayerStatus>();
-        _groundOffset = transform.position - _groundCheck.position;
+        _footOffset = transform.position - _footPos.position;
     }
 
     private void Update()
@@ -65,27 +65,34 @@ public class PlayerController : MonoBehaviour
 
     void UpdatePosition()
     {
+        var selfPos = transform.position;
+        var groundCheckYOffset = 3f;
         // ground check
-        var ground = Physics2D.OverlapPoint(_groundCheck.position, LayerMask.GetMask("Ground"));
-        _isGrounded = ground != null;
+        var rayStartPos = selfPos + Vector3.up * groundCheckYOffset;
+        Debug.DrawRay(rayStartPos, Vector2.down, Color.blue, 1f);
+        var hit = Physics2D.Raycast(rayStartPos, Vector2.down, 5f, LayerMask.GetMask("Ground"));
+        _isGrounded = hit.transform != null;
         float y;
         if (_isGrounded)
         {
             // place on the ground
-            y = _groundCheck.position.y + _groundOffset.y;
+            Debug.DrawLine(hit.point, hit.point + Vector2.left * 2f, Color.red, 1f);
+            y = hit.point.y + _footOffset.y;
         }
         else
         {
             // fall by gravity
-            y = transform.position.y - gravity;
+            y = selfPos.y - gravity;
         }
-        float x = transform.position.x;
+        transform.position = new Vector3(selfPos.x, y, selfPos.z);
+        selfPos = transform.position;
+        float x = selfPos.x;
         if (!_status.IsDead)
         {
             x += speed;
         }
-        var nextPos = new Vector3(x, y, transform.position.z);
-        transform.position = Vector3.Lerp(transform.position, nextPos, Time.deltaTime);
+        var nextPos = new Vector3(x, y, selfPos.z);
+        transform.position = Vector3.Lerp(selfPos, nextPos, Time.deltaTime);
     }
 
     void AddIngredient(int index)
