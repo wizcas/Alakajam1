@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public float tossSpeed = 8f;
     public float gravity = 9.8f;
     [SerializeField] Transform _footPos;
+    [SerializeField] float _footMarginY = .05f;
 
     [SerializeField] Potion _effectivePotion;
     [SerializeField] Potion _ineffectivePotion;
@@ -71,45 +72,59 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdatePosition();        
+        UpdatePosition();
     }
 
     void UpdatePosition()
     {
         var selfPos = transform.position;
-        var groundCheckYOffset = 3f;
+        var groundCheckYOffset = 0f;
         // ground check
         var rayStartPos = selfPos + Vector3.up * groundCheckYOffset;
-        Debug.DrawRay(rayStartPos, Vector2.down, Color.blue, 1f);
-        var hit = Physics2D.Raycast(rayStartPos, Vector2.down, 5f, LayerMask.GetMask("Ground"));
+        var hit = Physics2D.Raycast(rayStartPos, Vector2.down, 2f, LayerMask.GetMask("Ground"));
+        Vector2 slopeDir = Vector2.zero;
         if (hit.transform == null)
         {
             _isGrounded = false;
         }
         else
         {
-            _isGrounded = Mathf.Approximately(_footPos.position.y, hit.point.y) || _footPos.position.y < hit.point.y;
+            slopeDir = Quaternion.Euler(0, 0, -90) * hit.normal;
+            // if the slope is super steep, Unity returns a normal of value (0,1). 
+            // In such case, we're going to ignore the value
+            if (Mathf.Abs(slopeDir.y) < .0005)
+            {
+                slopeDir = Vector2.zero;
+            }
+            _isGrounded = Mathf.Abs(_footPos.position.y - hit.point.y) < _footMarginY || _footPos.position.y < hit.point.y;
         }
-        PrettyLog.LogEasy("is on ground?", _isGrounded);
-        float yDelta = -1;
-        if (_isGrounded)
-        {
-            // place on the ground
-            Debug.DrawLine(hit.point, hit.point + Vector2.left * 2f, Color.red, 1f);
-            yDelta = hit.point.y + _footOffset.y - selfPos.y;
-            PrettyLog.Log("hit: {0}, offset: {1}, y: {2}", hit.point.y, _footOffset.y, yDelta);
-        }
-        float xDelta = 1;
+        float yDelta = -gravity;
+        float xDelta = speed;
         if (_status.IsDead)
         {
             xDelta = 0;
+            yDelta = 0;
         }
-        var dir = new Vector2(xDelta, yDelta).normalized;
-        var nextPos = selfPos + new Vector3(dir.x * speed, dir.y * gravity, selfPos.z);
+        // determine the move velocity
+        var vec = new Vector3(xDelta, yDelta, 0f);
+        var moveDir = vec.normalized;
+        if (moveDir == Vector3.zero)
+            return;
         
+        var mag = vec.magnitude;
+        if (slopeDir != Vector2.zero && _isGrounded)
+        {
+            // slide along the slope and keep speed, if it's holding the player
+            var slopeAngle = Vector2.SignedAngle(Vector2.right, slopeDir);
+            var forwardAngle = Vector2.SignedAngle(Vector2.right, moveDir);
+            if(forwardAngle < slopeAngle)
+            {
+                moveDir = slopeDir;
+            }
+        }
+        
+        var nextPos = selfPos + moveDir * mag;
         transform.position = Vector3.Lerp(selfPos, nextPos, Time.fixedDeltaTime);
-        PrettyLog.Log("frame end: {0}", transform.position.y);
-
     }
 
     void AddIngredient(int index)

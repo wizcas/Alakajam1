@@ -962,6 +962,11 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 114583686560517590, guid: 3a5e335d6337ff643ba61a2e807fbfc8,
+        type: 2}
+      propertyPath: gravity
+      value: 9.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a5e335d6337ff643ba61a2e807fbfc8, type: 2}
   m_IsPrefabParent: 0
@@ -1039,7 +1044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1213307049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1813,11 +1818,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4496083230336372, guid: f2ae74a8ef3944c4d8e16de6dae5b759, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -36.1
+      value: -35.76
       objectReference: {fileID: 0}
     - target: {fileID: 4496083230336372, guid: f2ae74a8ef3944c4d8e16de6dae5b759, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -11.9
+      value: -23.15
       objectReference: {fileID: 0}
     - target: {fileID: 4496083230336372, guid: f2ae74a8ef3944c4d8e16de6dae5b759, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1833,11 +1838,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4496083230336372, guid: f2ae74a8ef3944c4d8e16de6dae5b759, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.21094373
+      value: -0.4100966
       objectReference: {fileID: 0}
     - target: {fileID: 4496083230336372, guid: f2ae74a8ef3944c4d8e16de6dae5b759, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.97749823
+      value: 0.9120421
       objectReference: {fileID: 0}
     - target: {fileID: 4496083230336372, guid: f2ae74a8ef3944c4d8e16de6dae5b759, type: 2}
       propertyPath: m_RootOrder
@@ -1845,7 +1850,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4496083230336372, guid: f2ae74a8ef3944c4d8e16de6dae5b759, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 24.355001
+      value: -48.422
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2ae74a8ef3944c4d8e16de6dae5b759, type: 2}
