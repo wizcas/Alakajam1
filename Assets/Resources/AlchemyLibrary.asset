@@ -31,12 +31,12 @@ MonoBehaviour:
     icon: {fileID: 21300006, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Fire
     essence: 0
-    stock: 10
+    stock: 30
   - id: earth
     icon: {fileID: 21300008, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Earth
     essence: 0
-    stock: 10
+    stock: 30
   formulars:
   - ingredientIds:
     - earth
