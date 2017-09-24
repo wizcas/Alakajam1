@@ -7,6 +7,7 @@ TagManager:
   - Potion
   - Obstacle
   - Enemy
+  - Planted
   layers:
   - Default
   - TransparentFX

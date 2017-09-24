@@ -13,70 +13,100 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredients:
   - id: gold
-    icon: {fileID: 21300000, guid: d8d2c4777dd6cbc4fa808f6b8f943c86, type: 3}
+    icon: {fileID: 21300000, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Gold
     essence: 0
     stock: 10
   - id: wood
-    icon: {fileID: 21300000, guid: e2d623c5e46a98c47b23e2b88df76199, type: 3}
+    icon: {fileID: 21300002, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Wood
     essence: 0
     stock: 10
   - id: water
-    icon: {fileID: 21300000, guid: 8f6631b54de6079429e43a9ed5555acb, type: 3}
+    icon: {fileID: 21300004, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Water
     essence: 0
     stock: 10
   - id: fire
-    icon: {fileID: 21300000, guid: 80ff868a632be274db7c37ad5f5607ef, type: 3}
+    icon: {fileID: 21300006, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Fire
     essence: 0
     stock: 10
   - id: earth
-    icon: {fileID: 21300000, guid: 8f6631b54de6079429e43a9ed5555acb, type: 3}
+    icon: {fileID: 21300008, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Earth
     essence: 0
     stock: 10
   formulars:
   - ingredientIds:
-    - gold
     - water
-    - wood
-    potionId: dustyCoal
-  - ingredientIds:
-    - gold
-    - gold
-    - gold
+    - fire
+    - earth
     potionId: shield
   - ingredientIds:
+    - water
+    - water
+    - earth
+    potionId: waterproof
+  - ingredientIds:
     - wood
     - wood
-    - wood
+    - earth
     potionId: tree
   - ingredientIds:
+    - tree
+    - tree
     - water
+    potionId: restore
+  - ingredientIds:
+    - gold
+    - fire
+    - earth
+    potionId: zombiekiller
+  - ingredientIds:
+    - gold
+    - gold
+    - fire
+    potionId: lumber
+  - ingredientIds:
+    - gold
     - water
-    - water
-    potionId: waterproof
+    - fire
+    potionId: stonebreaker
   potions:
-  - id: dustyCoal
-    icon: {fileID: 21300000, guid: 520ba7ae80ee92247bcef25102cb20d8, type: 3}
-    displayName: Dusty Coal
-    kind: 0
-    plantPrefab: {fileID: 0}
   - id: shield
-    icon: {fileID: 21300000, guid: 520ba7ae80ee92247bcef25102cb20d8, type: 3}
+    icon: {fileID: 21300000, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
     displayName: Golden Thing
     kind: 1
     plantPrefab: {fileID: 0}
   - id: tree
-    icon: {fileID: 21300000, guid: 520ba7ae80ee92247bcef25102cb20d8, type: 3}
+    icon: {fileID: 21300004, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
     displayName: Tree
     kind: 2
     plantPrefab: {fileID: 1225835897925756, guid: 78d4ebdce5e3fe84d85e59499dcd9873,
       type: 2}
   - id: waterproof
-    icon: {fileID: 21300000, guid: 4af8c8bbe784ce64580bfaa361659eed, type: 3}
+    icon: {fileID: 21300002, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
     displayName: Water Proof
     kind: 1
+    plantPrefab: {fileID: 0}
+  - id: restore
+    icon: {fileID: 21300006, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
+    displayName: Water Proof
+    kind: 1
+    plantPrefab: {fileID: 0}
+  - id: zombiekiller
+    icon: {fileID: 21300008, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
+    displayName: Water Proof
+    kind: 0
+    plantPrefab: {fileID: 0}
+  - id: lumber
+    icon: {fileID: 21300010, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
+    displayName: Water Proof
+    kind: 0
+    plantPrefab: {fileID: 0}
+  - id: stonebreaker
+    icon: {fileID: 21300012, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
+    displayName: Water Proof
+    kind: 0
     plantPrefab: {fileID: 0}

@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public float gravity = 9.8f;
     [SerializeField] Transform _footPos;
     [SerializeField] float _footMarginY = .05f;
+    [SerializeField] Transform _tossPos;
+    [SerializeField] Transform _drinkPos;
 
     [SerializeField] Animator _anim;
 
@@ -61,6 +63,14 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Keypad3))
         {
             AddIngredient(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            AddIngredient(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            AddIngredient(4);
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -166,7 +176,8 @@ public class PlayerController : MonoBehaviour
         {
             tween.AppendCallback(() =>
             {
-                var ingredient = Ingredient.Make(data.id, transform.position);
+                var ingredient = Ingredient.Make(data.id, _drinkPos.position);
+                ingredient.transform.localScale = Vector3.one * .5f;
                 tween.Join(ingredient.Pop(.4f));
             });
             tween.AppendInterval(delay);
@@ -176,6 +187,7 @@ public class PlayerController : MonoBehaviour
     void TossPotion(Potion potion)
     {
         PlayCast();
+        potion.transform.position = _tossPos.position;
         potion.gameObject.SetActive(true);
         PrettyLog.LogEasy(potion.name, potion.gameObject.activeSelf);
         potion.Rigid.AddForce(tossDir.normalized * tossSpeed, ForceMode2D.Impulse);
