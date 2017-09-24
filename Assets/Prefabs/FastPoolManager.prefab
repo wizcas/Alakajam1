@@ -72,3 +72,13 @@ MonoBehaviour:
     useCustomID: 1
     customID: 2
     cached_internal: 0
+  - sourcePrefab: {fileID: 1598081288819730, guid: cd44168a47267234089ab1ac0c8fd771,
+      type: 2}
+    Capacity: 10
+    PreloadCount: 0
+    NotificationType: 2
+    WarmOnLoad: 0
+    ParentOnCache: 0
+    useCustomID: 1
+    customID: 3
+    cached_internal: 0

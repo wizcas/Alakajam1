@@ -21,7 +21,7 @@ public class Ground : MonoBehaviour
                 var potion = collision.GetComponent<Potion>();
                 if (potion != null)
                 {
-                    potion.Break();
+                    potion.Break(true);
                 }
                 break;
         }

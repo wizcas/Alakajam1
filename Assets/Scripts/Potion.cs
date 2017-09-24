@@ -34,9 +34,9 @@ public class Potion : MonoBehaviour
         }
     }
 
-    public void Break()
+    public void Break(bool isOnGround)
     {
-        AfterBreak();
+        AfterBreak(isOnGround);
         Pool.FastDestroy(this);
     }
 
@@ -49,9 +49,9 @@ public class Potion : MonoBehaviour
         return potion;
     }
 
-    void AfterBreak()
+    void AfterBreak(bool isOnGround)
     {
-        if(data.kind == PotionData.Kind.Plant)
+        if(data.kind == PotionData.Kind.Plant && isOnGround)
         {
             var plant = Instantiate(data.plantPrefab);
             plant.transform.position = transform.position;

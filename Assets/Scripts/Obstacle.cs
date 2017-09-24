@@ -12,11 +12,12 @@ using System.Linq;
 using UnityEngine;
 
 [PrettyLog.Provider("Obstacle", "", "red", "")]
-public class Obstacle : MonoBehaviour 
+public class Obstacle : MonoBehaviour
 {
     public string[] effectivePotionIds;
     [SerializeField] protected int damage = 10;
     [SerializeField] protected DamageType dmgType;
+    [SerializeField] protected GameObject dieFx;
 
     public const int InstantDeathDmg = 999999;
 
@@ -36,10 +37,10 @@ public class Obstacle : MonoBehaviour
                 var playerStatus = collision.GetComponent<PlayerStatus>();
                 if (playerStatus != null)
                 {
-                    playerStatus.Damage(damage, dmgType);                    
+                    playerStatus.Damage(damage, dmgType);
                 }
                 var playerController = collision.GetComponent<PlayerController>();
-                if(playerController != null && dmgType == DamageType.Normal)
+                if (playerController != null && dmgType == DamageType.Normal)
                 {
                     playerController.PlayHit();
                 }
@@ -52,7 +53,7 @@ public class Obstacle : MonoBehaviour
                     {
                         Eliminate();
                     }
-                    potion.Break();
+                    potion.Break(false);
                 }
                 break;
         }
@@ -60,7 +61,7 @@ public class Obstacle : MonoBehaviour
 
     bool IsPotionEffective(Potion potion)
     {
-        if(potion == null)
+        if (potion == null)
         {
             PrettyLog.Error("{0} collides with a null potion", name);
             return false;
@@ -80,5 +81,6 @@ public class Obstacle : MonoBehaviour
     {
         PrettyLog.Log("{0} is destroyed", name);
         gameObject.SetActive(false);
+        FastPoolManager.GetPool(3, null, false).FastInstantiate(transform.position + Vector3.up * .5f, Quaternion.identity);
     }
 }
