@@ -30,6 +30,11 @@ public class AlchemyLab : Singleton<AlchemyLab>
         addedIngredients = new List<IngredientData>(slotCount);
     }
 
+    public void Reset()
+    {
+        ClearIngredients();
+    }
+
     public void ClearIngredients()
     {
         addedIngredients.Clear();

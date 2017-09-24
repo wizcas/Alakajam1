@@ -12,7 +12,7 @@ using UnityEngine;
 public class Water : MonoBehaviour
 {
     public int dps = 5;
-    public float speedModifier = -3f;
+    public float speedModifier = -1.5f;
     public float damageInterval = 1;
 
     float _nextDamageTime = float.NaN;

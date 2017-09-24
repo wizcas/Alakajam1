@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224362378486362470}
   - component: {fileID: 114076959115560550}
+  - component: {fileID: 114091110587137838}
   m_Layer: 5
   m_Name: Stock
   m_TagString: Untagged
@@ -49,6 +50,20 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 1
+--- !u!114 &114091110587137838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1067087763438366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417f542a20697084cb597d7d6395b988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _root: {fileID: 224362378486362470}
+  _stockItemPrefab: {fileID: 114949875698847960, guid: 87414eee9b14fd641a58ecea9109f013,
+    type: 2}
 --- !u!224 &224362378486362470
 RectTransform:
   m_ObjectHideFlags: 1
@@ -64,6 +79,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 110, y: -10}
-  m_SizeDelta: {x: 434.82, y: 60}
+  m_AnchoredPosition: {x: 227.91992, y: -10}
+  m_SizeDelta: {x: 316.9, y: 150}
   m_Pivot: {x: 0, y: 1}

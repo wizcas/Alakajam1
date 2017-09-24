@@ -79,9 +79,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectivePotionIds:
-  - test
-  damage: 5
+  - lumber
+  damage: 10
   dmgType: 0
+  dieFx: {fileID: 0}
 --- !u!212 &212080373403434016
 SpriteRenderer:
   m_ObjectHideFlags: 1

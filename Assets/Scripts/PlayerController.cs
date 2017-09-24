@@ -17,17 +17,39 @@ public class PlayerController : MonoBehaviour
     public float speedModifier = 0;
     public Vector2 tossDir = new Vector2(1, .5f);
     public float tossSpeed = 8f;
+    public Vector2 plantDir = new Vector2(1, 1f);
+    public float plantSpeed = 4f;
     public float gravity = 9.8f;
     [SerializeField] Transform _footPos;
     [SerializeField] float _footMarginY = .05f;
     [SerializeField] Transform _tossPos;
     [SerializeField] Transform _drinkPos;
+    [SerializeField] Transform _endingPoint;
+    [SerializeField] Transform _stopPoint;
 
     [SerializeField] Animator _anim;
+    [SerializeField] GameObject _menu;
+    [SerializeField] GameObject _deadNote;
+    [SerializeField] GameObject _resumeTip;
 
     PlayerStatus _status;
     bool _isGrounded;
     Vector2 _footOffset;
+    bool _isLevelCleared;
+    bool _isMenuShown;
+    bool IsMenuShown
+    {
+        get
+        {
+            return _isMenuShown;
+        }
+        set
+        {
+            _isMenuShown = value;
+            Time.timeScale = _isMenuShown ? 0 : 1;
+            _menu.SetActive(_isMenuShown);
+        }
+    }
 
     float Speed
     {
@@ -38,37 +60,50 @@ public class PlayerController : MonoBehaviour
     {
         Messenger.AddListener<LabData>(Messages.UsePotion, UsePotion);
         _status = GetComponent<PlayerStatus>();
+        IsMenuShown = false;
     }
 
     private void Start()
     {
         _footOffset = transform.position - _footPos.position;
+        _deadNote.gameObject.SetActive(false);
+        _resumeTip.gameObject.SetActive(true);
     }
 
     private void Update()
     {
-        // todo: change keyboard mapping
-        if (Input.GetKeyDown(KeyCode.Keypad0))
+        if (_status.IsDead)
+        {
+            IsMenuShown = true;
+            _deadNote.gameObject.SetActive(true);
+            _resumeTip.gameObject.SetActive(false);
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            IsMenuShown = !IsMenuShown;
+        }
+        if (Input.GetKeyDown(KeyCode.M))
         {
             AlchemyLab.Instance.ClearIngredients();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad1))
+        else if (Input.GetKeyDown(KeyCode.I))
         {
             AddIngredient(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        else if (Input.GetKeyDown(KeyCode.O))
         {
             AddIngredient(1);
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad3))
+        else if (Input.GetKeyDown(KeyCode.P))
         {
             AddIngredient(2);
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        else if (Input.GetKeyDown(KeyCode.K))
         {
             AddIngredient(3);
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad5))
+        else if (Input.GetKeyDown(KeyCode.L))
         {
             AddIngredient(4);
         }
@@ -76,10 +111,21 @@ public class PlayerController : MonoBehaviour
         {
             AlchemyLab.Instance.UseCurrentPotion();
         }
+
+        if (transform.position.x >= _endingPoint.position.x)
+        {
+            Camera.main.GetComponent<CameraController>().target = null;
+        }
+        if (transform.position.x >= _stopPoint.position.x)
+        {
+            _anim.SetBool("Stopped", true);
+            speedModifier = -speed;
+        }
     }
 
     private void FixedUpdate()
     {
+        if (_status.IsDead) return;
         UpdatePosition();
     }
 
@@ -159,8 +205,10 @@ public class PlayerController : MonoBehaviour
         switch (potion.data.kind)
         {
             case PotionData.Kind.Toss:
+                TossPotion(potion, false);
+                break;
             case PotionData.Kind.Plant:
-                TossPotion(potion);
+                TossPotion(potion, true);
                 break;
             case PotionData.Kind.Drink:
                 DrinkPotion(potion);
@@ -184,13 +232,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void TossPotion(Potion potion)
+    void TossPotion(Potion potion, bool isPlant)
     {
         PlayCast();
         potion.transform.position = _tossPos.position;
         potion.gameObject.SetActive(true);
         PrettyLog.LogEasy(potion.name, potion.gameObject.activeSelf);
-        potion.Rigid.AddForce(tossDir.normalized * tossSpeed, ForceMode2D.Impulse);
+        var dir = (isPlant ? plantDir : tossDir).normalized;
+        var speed = isPlant ? plantSpeed : tossSpeed;
+        potion.Rigid.AddForce(dir * speed, ForceMode2D.Impulse);
     }
 
     void DrinkPotion(Potion potion)
@@ -200,7 +250,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayHit()
     {
-        if (_status.HasBuff("shield")) 
+        if (_status.HasBuff("shield"))
         {
             return;
         }

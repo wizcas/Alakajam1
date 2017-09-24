@@ -23,7 +23,7 @@ public class AlchemyLibrary : ScriptableObject
             if (_instance == null)
             {
                 _instance = Resources.Load<AlchemyLibrary>(ResourcePath);
-                _instance.BuildRuntimeData();
+                _instance.Reload();
             }
             return _instance;
         }
@@ -33,7 +33,7 @@ public class AlchemyLibrary : ScriptableObject
     [SerializeField] Formular[] formulars;
     [SerializeField] PotionData[] potions;
 
-    void BuildRuntimeData()
+    public void Reload()
     {
         runtimeIngredients = CopyArray(ingredients);
         runtimePotions = CopyArray(potions);

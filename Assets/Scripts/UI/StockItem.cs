@@ -14,6 +14,7 @@ public class StockItem : MonoBehaviour
 {
     [SerializeField] Image _icon;
     [SerializeField] Text _amount;
+    public Text key;
 
     public void UpdateData(IngredientData data)
     {

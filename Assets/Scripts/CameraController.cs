@@ -21,6 +21,9 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        transform.position = target.position + _offset2Target;
+        if (target != null)
+        {
+            transform.position = target.position + _offset2Target;
+        }
     }
 }

@@ -245,7 +245,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1397695005775532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 63.55, y: 1.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4090092760702550}
@@ -290,7 +290,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.007339239, y: 0.5}
+  m_Offset: {x: 0.015086308, y: 0.44401652}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -301,7 +301,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.83018434, y: 1}
+  m_Size: {x: 0.44306883, y: 0.88803303}
   m_EdgeRadius: 0
 --- !u!95 &95006148681271442
 Animator:
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2aed634af139a4aa383b4fb1b0cf27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 50
   buffs:
   - {fileID: 114854918356602038}
   - {fileID: 114342289036534742}
@@ -364,15 +364,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4927877255472d741af0b12072b7cccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
   speedModifier: 0
   tossDir: {x: 1, y: 0.5}
-  tossSpeed: 10
+  tossSpeed: 8
+  plantDir: {x: 1, y: 0}
+  plantSpeed: 4
   gravity: 9.8
   _footPos: {fileID: 4090092760702550}
   _footMarginY: 0.05
   _tossPos: {fileID: 4399343570311176}
   _drinkPos: {fileID: 4339585450575446}
+  _endingPoint: {fileID: 0}
+  _stopPoint: {fileID: 0}
   _anim: {fileID: 95006148681271442}
 --- !u!114 &114854918356602038
 MonoBehaviour:

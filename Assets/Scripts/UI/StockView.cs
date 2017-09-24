@@ -15,20 +15,24 @@ public class StockView : MonoBehaviour
     [SerializeField] StockItem _stockItemPrefab;
 
     Dictionary<string, StockItem> _stockItemMap = new Dictionary<string, StockItem>();
+    readonly string[] keys = new[] { "I", "O", "P", "K", "L" };
 
     private void Awake()
     {
         Messenger.AddListener<IngredientData>(Messages.StockChanged, UpdateItem);
         var ingredients = AlchemyLibrary.Instance.Ingredients;
+        var index = 0;
         foreach(var ingredient in ingredients)
         {
-            MakeItem(ingredient);
+            MakeItem(ingredient, index);
+            index++;
         }
     }
 
-    void MakeItem(IngredientData data)
+    void MakeItem(IngredientData data, int index)
     {
         var item = Instantiate(_stockItemPrefab);
+        item.key.text = keys[index];
         item.UpdateData(data);
         item.transform.SetParent(_root, false);
         _stockItemMap[data.id] = item;

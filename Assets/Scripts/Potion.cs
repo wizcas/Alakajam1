@@ -53,8 +53,9 @@ public class Potion : MonoBehaviour
     {
         if(data.kind == PotionData.Kind.Plant && isOnGround)
         {
+            var hit = Physics2D.Raycast(transform.position, Vector2.down, 1, LayerMask.GetMask("Ground"));
             var plant = Instantiate(data.plantPrefab);
-            plant.transform.position = transform.position;
+            plant.transform.position = hit.point + Vector2.down * .2f;
         }
     }
 }

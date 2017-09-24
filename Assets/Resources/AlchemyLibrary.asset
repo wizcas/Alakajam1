@@ -16,17 +16,17 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Gold
     essence: 0
-    stock: 10
+    stock: 30
   - id: wood
     icon: {fileID: 21300002, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Wood
     essence: 0
-    stock: 10
+    stock: 30
   - id: water
     icon: {fileID: 21300004, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Water
     essence: 0
-    stock: 10
+    stock: 30
   - id: fire
     icon: {fileID: 21300006, guid: eae7776b123b14f458b703d619485710, type: 3}
     displayName: Fire
@@ -39,19 +39,19 @@ MonoBehaviour:
     stock: 10
   formulars:
   - ingredientIds:
-    - water
-    - fire
     - earth
+    - fire
+    - water
     potionId: shield
   - ingredientIds:
-    - water
-    - water
     - earth
+    - water
+    - water
     potionId: waterproof
   - ingredientIds:
-    - wood
-    - wood
     - earth
+    - wood
+    - wood
     potionId: tree
   - ingredientIds:
     - tree
@@ -59,24 +59,24 @@ MonoBehaviour:
     - water
     potionId: restore
   - ingredientIds:
-    - gold
-    - fire
     - earth
+    - fire
+    - gold
     potionId: zombiekiller
   - ingredientIds:
-    - gold
-    - gold
     - fire
+    - gold
+    - gold
     potionId: lumber
   - ingredientIds:
+    - fire
     - gold
     - water
-    - fire
     potionId: stonebreaker
   potions:
   - id: shield
     icon: {fileID: 21300000, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
-    displayName: Golden Thing
+    displayName: Shield
     kind: 1
     plantPrefab: {fileID: 0}
   - id: tree
@@ -92,21 +92,21 @@ MonoBehaviour:
     plantPrefab: {fileID: 0}
   - id: restore
     icon: {fileID: 21300006, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
-    displayName: Water Proof
+    displayName: Restore
     kind: 1
     plantPrefab: {fileID: 0}
   - id: zombiekiller
     icon: {fileID: 21300008, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
-    displayName: Water Proof
+    displayName: Zombie Killer
     kind: 0
     plantPrefab: {fileID: 0}
   - id: lumber
     icon: {fileID: 21300010, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
-    displayName: Water Proof
+    displayName: Lumberjack
     kind: 0
     plantPrefab: {fileID: 0}
   - id: stonebreaker
     icon: {fileID: 21300012, guid: f668ed25a3a8ee644a525e174b1a243c, type: 3}
-    displayName: Water Proof
+    displayName: Stone Breaker
     kind: 0
     plantPrefab: {fileID: 0}

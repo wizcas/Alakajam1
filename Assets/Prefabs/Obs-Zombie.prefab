@@ -79,9 +79,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectivePotionIds:
-  - test
+  - zombiekiller
   damage: 20
   dmgType: 0
+  dieFx: {fileID: 0}
 --- !u!212 &212685299905252154
 SpriteRenderer:
   m_ObjectHideFlags: 1

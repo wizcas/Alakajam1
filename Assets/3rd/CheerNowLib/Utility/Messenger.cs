@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 static internal class Messenger
 {
@@ -361,10 +362,12 @@ public sealed class MessengerHelper : Singleton<MessengerHelper>
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
-    //Clean up eventTable every time a new level loads.
-    public void OnLevelWasLoaded(int unused)
-    {
-        Messenger.Cleanup();
+        SceneManager.sceneUnloaded += (scene) =>
+        {
+            if (scene == SceneManager.GetActiveScene())
+            {
+                Messenger.Cleanup();
+            }
+        };
     }
 }

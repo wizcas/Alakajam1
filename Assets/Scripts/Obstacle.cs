@@ -33,7 +33,10 @@ public class Obstacle : MonoBehaviour
         switch (tag)
         {
             case Tags.Player:
-                Eliminate();
+                if (dmgType != DamageType.InstantDeath)
+                {
+                    Eliminate();
+                }
                 var playerStatus = collision.GetComponent<PlayerStatus>();
                 if (playerStatus != null)
                 {

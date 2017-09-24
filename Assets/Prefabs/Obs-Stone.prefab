@@ -79,9 +79,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectivePotionIds:
-  - test
-  damage: 10
+  - stonebreaker
+  damage: 15
   dmgType: 0
+  dieFx: {fileID: 0}
 --- !u!212 &212312784123519472
 SpriteRenderer:
   m_ObjectHideFlags: 1

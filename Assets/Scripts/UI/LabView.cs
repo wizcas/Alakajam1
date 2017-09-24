@@ -17,6 +17,7 @@ public class LabView : UIBehaviour
     [SerializeField] Sprite _emptySprite;
     [SerializeField] Image[] _ingredientSlots;
     [SerializeField] Image _potionSlot;
+    [SerializeField] Text _potionName;
 
     protected override void Awake()
     {
@@ -35,6 +36,9 @@ public class LabView : UIBehaviour
             }
             _ingredientSlots[i].sprite = icon;
         }
-        _potionSlot.sprite = data.outcomePotion == null ? _emptySprite : data.outcomePotion.icon;
+        _potionSlot.sprite = data.outcomePotion == null ? null : data.outcomePotion.icon;
+        _potionSlot.gameObject.SetActive(_potionSlot.sprite != null);
+        _potionName.text = data.outcomePotion == null ? string.Empty : data.outcomePotion.displayName;
+        _potionName.transform.parent.gameObject.SetActive(!string.IsNullOrEmpty(_potionName.text));
     }
 }

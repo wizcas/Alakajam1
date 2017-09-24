@@ -48,6 +48,8 @@ namespace Cheers
                 break;
             }
             return guiStyle;
+#else
+            return null;
 #endif
         }
 

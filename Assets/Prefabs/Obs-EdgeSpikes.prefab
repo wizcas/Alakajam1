@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761265801257728}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.98, y: 0.5, z: 0}
+  m_LocalPosition: {x: 47.769, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,7 +54,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.23549438, y: -0.014960945}
+  m_Offset: {x: -0.22016716, y: -0.016664028}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 1, y: 0.5}
@@ -65,7 +65,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.47098875, y: 0.5990499}
+  m_Size: {x: 0.44033432, y: 0.5207064}
   m_EdgeRadius: 0
 --- !u!114 &114424361901555542
 MonoBehaviour:
@@ -78,10 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bf8a7457f1c8644a23ffce4620ecb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectivePotionIds:
-  - test
+  effectivePotionIds: []
   damage: 99999
   dmgType: 2
+  dieFx: {fileID: 0}
 --- !u!212 &212928756927698660
 SpriteRenderer:
   m_ObjectHideFlags: 1

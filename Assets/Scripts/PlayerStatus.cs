@@ -83,6 +83,7 @@ public class PlayerStatus : MonoBehaviour
     {
         CurrentHp = hp;
         IsInWater = false;
+        _dustFx.gameObject.SetActive(true);
     }
 
     public void Damage(int dmg, DamageType dmgType)
@@ -99,6 +100,7 @@ public class PlayerStatus : MonoBehaviour
     void Die()
     {
         _controller.PlayDie();
+        _dustFx.gameObject.SetActive(false);
     }
 
     public void SetBuff(string potionId, bool isOn)
