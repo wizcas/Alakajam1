@@ -16,6 +16,9 @@ public class Obstacle : MonoBehaviour
 {
     public string[] effectivePotionIds;
     [SerializeField] protected int damage = 10;
+    [SerializeField] protected DamageType dmgType;
+
+    public const int InstantDeathDmg = 999999;
 
     void Awake()
     {
@@ -33,12 +36,12 @@ public class Obstacle : MonoBehaviour
                 var playerStatus = collision.GetComponent<PlayerStatus>();
                 if (playerStatus != null)
                 {
-                    playerStatus.Damage(damage);                    
+                    playerStatus.Damage(damage, dmgType);                    
                 }
                 var playerController = collision.GetComponent<PlayerController>();
-                if(playerController != null)
+                if(playerController != null && dmgType == DamageType.Normal)
                 {
-                    playerController.Hit();
+                    playerController.PlayHit();
                 }
                 break;
             case Tags.Potion:

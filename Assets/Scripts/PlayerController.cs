@@ -35,13 +35,12 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Messenger.AddListener<LabData>(Messages.UsePotion, UsePotion);
+        _status = GetComponent<PlayerStatus>();
     }
 
     private void Start()
     {
-        _status = GetComponent<PlayerStatus>();
         _footOffset = transform.position - _footPos.position;
-        //Debug.Break();
     }
 
     private void Update()
@@ -176,6 +175,7 @@ public class PlayerController : MonoBehaviour
 
     void TossPotion(Potion potion)
     {
+        PlayCast();
         potion.gameObject.SetActive(true);
         PrettyLog.LogEasy(potion.name, potion.gameObject.activeSelf);
         potion.Rigid.AddForce(tossDir.normalized * tossSpeed, ForceMode2D.Impulse);
@@ -186,8 +186,22 @@ public class PlayerController : MonoBehaviour
         _status.SetBuff(potion.data.id, true);
     }
 
-    public void Hit()
+    public void PlayHit()
     {
+        if (_status.HasBuff("shield")) 
+        {
+            return;
+        }
         _anim.SetTrigger("Hit");
+    }
+
+    public void PlayDie()
+    {
+        _anim.SetTrigger("Die");
+    }
+
+    public void PlayCast()
+    {
+        _anim.SetTrigger("Cast");
     }
 }

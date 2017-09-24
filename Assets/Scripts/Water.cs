@@ -28,6 +28,7 @@ public class Water : MonoBehaviour
             _playerController = collision.GetComponent<PlayerController>();
             _playerStatus = collision.GetComponent<PlayerStatus>();
             _playerController.speedModifier = speedModifier;
+            _playerStatus.IsInWater = true;
         }
     }
 
@@ -38,6 +39,7 @@ public class Water : MonoBehaviour
             PrettyLog.Log("player leaves water");
             _nextDamageTime = float.NaN;
             _playerController.speedModifier -= speedModifier;
+            _playerStatus.IsInWater = false;
             _playerController = null;
             _playerStatus = null;
         }
@@ -49,7 +51,7 @@ public class Water : MonoBehaviour
         {
             PrettyLog.Log("player stays in water");
 
-            _playerStatus.Damage(dps);
+            _playerStatus.Damage(dps, DamageType.Drown);
             _nextDamageTime = Time.time + damageInterval;
         }
     }

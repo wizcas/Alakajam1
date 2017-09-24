@@ -30,4 +30,5 @@ public static class Messages
     public const string PlayerStatusChanged = "PlayerStatusChanged";
     public const string UsePotion = "UsePotion";
     public const string StockChanged = "StockChanged";
+    public const string BuffUpdated = "BuffUpdated";
 }

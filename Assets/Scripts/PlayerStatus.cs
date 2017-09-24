@@ -12,16 +12,31 @@ using System.Linq;
 using UnityEngine;
 
 [PrettyLog.Provider("Player", "status", "green", "magenta")]
+[RequireComponent(typeof(PlayerController))]
 public class PlayerStatus : MonoBehaviour
 {
 
     public int hp = 100;
     public Buff[] buffs;
 
+    [SerializeField] ParticleSystem _dustFx;
+    [SerializeField] ParticleSystem _bubbleFx;
+
     [ReadOnly, SerializeField]
     int _currentHp;
     [ReadOnly, SerializeField]
-    Buff _activeBuff;
+    List<Buff> _activeBuffs = new List<Buff>();
+
+    PlayerController _controller;
+
+    public bool IsInWater
+    {
+        set
+        {
+            _dustFx.gameObject.SetActive(!value);
+            _bubbleFx.gameObject.SetActive(value);
+        }
+    }
 
     public int CurrentHp
     {
@@ -53,6 +68,12 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        _controller = GetComponent<PlayerController>();
+        Messenger.AddListener<Buff>(Messages.BuffUpdated, OnBuffUpdated);
+    }
+
     private void Start()
     {
         Reset();
@@ -61,39 +82,69 @@ public class PlayerStatus : MonoBehaviour
     public void Reset()
     {
         CurrentHp = hp;
+        IsInWater = false;
     }
 
-    public void Damage(int dmg)
+    public void Damage(int dmg, DamageType dmgType)
     {
+        if (dmgType == DamageType.Normal && HasBuff("shield"))
+            return;
+        if (dmgType == DamageType.Drown && HasBuff(("waterproof")))
+            return;
+
         CurrentHp = Mathf.Max(0, CurrentHp - dmg);
         if (CurrentHp <= 0) Die();
     }
 
     void Die()
     {
-        PrettyLog.Log("You are dead");
+        _controller.PlayDie();
     }
 
     public void SetBuff(string potionId, bool isOn)
     {
+        Buff buff = _activeBuffs.FirstOrDefault(b => b.potionId.ToLower() == potionId.ToLower());
         if (!isOn)
         {
-            if (_activeBuff != null && _activeBuff.potionId.ToLower() == potionId.ToLower())
-                _activeBuff.Disable();
+            if (buff != null)
+            {
+                buff.Disable();
+                _activeBuffs.Remove(buff);
+            }
             return;
         }
 
-        var buff = buffs.FirstOrDefault(b => b.potionId == potionId);
+        bool newbuff = false;
+        if (buff == null) {
+            buff = buffs.FirstOrDefault(b => b.potionId.ToLower() == potionId.ToLower());
+            newbuff = true;
+        }
         if (buff == null)
         {
             return;
         }
-        if (_activeBuff != null)
+        if (newbuff)
         {
-            _activeBuff.Disable();
+            _activeBuffs.Add(buff);
         }
-        _activeBuff = buff;
-        _activeBuff.Enable();
-
+        buff.Enable();
     }
+
+    public bool HasBuff(string potionId)
+    {
+        return _activeBuffs.Any(b => b.potionId.ToLower() == potionId.ToLower());
+    }
+
+    void OnBuffUpdated(Buff buff)
+    {
+        if (buff.remainingSeconds < 0)
+            _activeBuffs.Remove(buff);
+    }
+}
+
+public enum DamageType
+{
+    Normal,
+    Drown,
+    InstantDeath
 }
