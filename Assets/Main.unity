@@ -1489,7 +1489,8 @@ MonoBehaviour:
 
 
     Choose right formular (with <color=yellow>I, O, P, K or L</color>) in right time,
-    and press <color=yellow>SPACE</color> to combine.
+    and press <color=yellow>SPACE</color> to combine. Or re-choose with <color=yellow>M</color>
+    key.
 
     Ingredients are limited. If you runs out of them, good luck to you.
 

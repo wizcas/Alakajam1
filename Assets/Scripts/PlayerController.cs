@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     bool _isGrounded;
     Vector2 _footOffset;
     bool _isLevelCleared;
+    bool _isGameOver;
     bool _isMenuShown;
     bool IsMenuShown
     {
@@ -70,13 +71,19 @@ public class PlayerController : MonoBehaviour
         _resumeTip.gameObject.SetActive(true);
     }
 
+    IEnumerator ShowMenuWhenDead(){
+        yield return new WaitForSeconds(1.5f);
+        IsMenuShown = true;
+    }
+
     private void Update()
     {
-        if (_status.IsDead)
-        {
-            IsMenuShown = true;
+        if (_status.IsDead && !_isGameOver)
+        {   
+            StartCoroutine(ShowMenuWhenDead());
             _deadNote.gameObject.SetActive(true);
             _resumeTip.gameObject.SetActive(false);
+            _isGameOver = true;
             return;
         }
         if (Input.GetKeyDown(KeyCode.Escape))
